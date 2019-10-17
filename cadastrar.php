@@ -1,3 +1,8 @@
+<?php   
+    require_once 'classes/usuarios.php'
+    $u = new Usuario;
+?>
+
 <html lang="pt-br">
     <head>
         <meta charset="utf-8">
@@ -19,10 +24,19 @@
         </div>
         <?php
             //verificar se clicou no botão
-            
-
-
-
+            isset($_POST['nome']){
+                $nome = addcslashes($_POST['nome']);
+                $telefone = addcslashes($_POST['telefone']);
+                $email = addcslashes($_POST['email']);
+                $senha = addcslashes($_POST['senha']);
+                $confirmarSenha = addcslashes($_POST['confSenha']);
+                //verificar se ta preenchido
+                if (!empty($nome) && !empty($telefone) && !empty($email) && !empty($senha) && !empty($confirmarSenha)) {
+                    $u->conectar("login","http://projeto.php/login/","root","");
+                }else{
+                    echo "Preencha todos os campos!";
+                } 
+            }
         ?>
     </body>
 </html>
