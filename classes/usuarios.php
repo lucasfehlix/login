@@ -3,11 +3,11 @@
         private $pdo;
         public $msgErro = ""; 
         //função para se conectar com o banco....
-        public function conectar($nome, $host, $usuario, $senha){
+        public function conectar($dbNome, $host, $usuario, $senha){
             global $pdo;
             global $msgErro;
             try{
-                $pdo = new PDO("mysql:dbname=".$nome.";host=".$host,$usuario,$senha);
+                $pdo = new PDO("mysql:dbname=".$dbNome.";host=".$host,$usuario,$senha);
             }
             catch(PDOException $e){
                 $msgErro = $e->getMessage();

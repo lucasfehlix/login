@@ -31,7 +31,7 @@
                 $confirmarSenha = addslashes($_POST['confSenha']);
                 //verificar se ta preenchido
                 if (!empty($nome) && !empty($telefone) && !empty($email) && !empty($senha) && !empty($confirmarSenha)) {
-                    $u->conectar("login","localhost","root","");
+                    $u->conectar("php","localhost","root","");
                     if($u->msgErro == ""){//se vazio esta tudo OK
                         if($senha == $confirmarSenha){
                             if($u->cadastrar($nome,$telefone,$email,$senha)){

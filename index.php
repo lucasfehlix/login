@@ -26,7 +26,7 @@
                 $senha = addslashes($_POST['senha']);
                 if (!empty($email) && !empty($senha)) {
                     if($u->msgErro==""){
-                        $u->conectar("login","localhost","root","");
+                        $u->conectar("php","localhost","root","");
                         if($u->logar($email,$senha)){
                             header("location: areaPrivada.php");                            
                         }else{
