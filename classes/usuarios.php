@@ -7,7 +7,7 @@
             global $pdo;
             global $msgErro;
             try{
-                $pdo = new PDO("mysql:dbname=".$name.";host=".$host,$usuario,$senha);
+                $pdo = new PDO("mysql:dbname=".$nome.";host=".$host,$usuario,$senha);
             }
             catch(PDOException $e){
                 $msgErro = $e->getMessage();
@@ -18,7 +18,7 @@
             global $pdo;
             //verifica se ja existe usuario no banco
             $sql = $pdo->prepare("SELECT id_usuario FROM usuarios WHERE email = :e");
-            $sql->dindValue(":e",$email);
+            $sql->bindValue(":e",$email);
             $sql->execute();
             if($sql->rowCount() > 0){
                 return false;
@@ -28,7 +28,7 @@
                 $sql->bindValue(":n",$nome);
                 $sql->bindValue(":t",$telefone);
                 $sql->bindValue(":e",$email);
-                $sql->bindValue(":s",$senha);
+                $sql->bindValue(":s",md5($senha));
                 $sql->execute();
                 return true;
             }
@@ -38,8 +38,8 @@
             global $pdo;
             //verificar se o email e senha estao cadastrados , se sim entrar no sistema (sessao)
             $sql = $pdo->prepare("SELECT id_usuario FROM usuarios WHERE email = :e AND senha = :s");
-            $sql->dindValue(":e",$email);
-            $sql->dindValue(":s",$senha);
+            $sql->bindValue(":e",$email);
+            $sql->bindValue(":s",md5($senha));
             $sql->execute();
             if($sql->rowCount() > 0){
                 //se sim, entrar no sistema (sessao)

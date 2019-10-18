@@ -1,5 +1,5 @@
 <?php   
-    require_once 'classes/usuarios.php'
+    require_once 'classes/usuarios.php';
     $u = new Usuario;
 ?>
 
@@ -24,15 +24,28 @@
         </div>
         <?php
             //verificar se clicou no botão
-            isset($_POST['nome']){
-                $nome = addcslashes($_POST['nome']);
-                $telefone = addcslashes($_POST['telefone']);
-                $email = addcslashes($_POST['email']);
-                $senha = addcslashes($_POST['senha']);
-                $confirmarSenha = addcslashes($_POST['confSenha']);
+            if(isset($_POST['nome'])){
+                $nome = addslashes($_POST['nome']);
+                $telefone = addslashes($_POST['telefone']);
+                $email = addslashes($_POST['email']);
+                $senha = addslashes($_POST['senha']);
+                $confirmarSenha = addslashes($_POST['confSenha']);
                 //verificar se ta preenchido
                 if (!empty($nome) && !empty($telefone) && !empty($email) && !empty($senha) && !empty($confirmarSenha)) {
-                    $u->conectar("login","http://projeto.php/login/","root","");
+                    $u->conectar("login","localhost","root","");
+                    if($u->msgErro == ""){//se vazio esta tudo OK
+                        if($senha == $confirmarSenha){
+                            if($u->cadastrar($nome,$telefone,$email,$senha)){
+                                echo "Cadastrado com sucesso! Acesse para entrar!";
+                            }else{
+                                echo "Email já cadastrado!";
+                            }
+                        }else{
+                            echo "Erro: Senha e Confirmar Senha não confere!";
+                        }
+                    }else{
+                        echo "Erro: ".$u->msgErro;
+                    }
                 }else{
                     echo "Preencha todos os campos!";
                 } 
