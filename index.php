@@ -1,3 +1,8 @@
+<?php   
+    require_once 'classes/usuarios.php';
+    $u = new Usuario;
+?>
+
 <html lang="pt-br">
     <head>
         <meta charset="utf-8">
@@ -16,10 +21,36 @@
             </form>
         </div>
         <?php
-        
-
-
-        
+            if(isset($_POST['email'])){
+                $email = addslashes($_POST['email']);
+                $senha = addslashes($_POST['senha']);
+                if (!empty($email) && !empty($senha)) {
+                    if($u->msgErro==""){
+                        $u->conectar("login","localhost","root","");
+                        if($u->logar($email,$senha)){
+                            header("location: areaPrivada.php");                            
+                        }else{
+                            ?>
+                                <div class="msg-erro">
+                                    Erro: Email e/ou senha estão incorretos!
+                                </div> 
+                            <?php
+                        }
+                    }else{
+                        ?>
+                            <div class="msg-erro">
+                                <?php echo "Erro: ".$u->msgErro; ?>
+                            </div> 
+                        <?php
+                    }
+                }else{
+                    ?>
+                        <div class="msg-erro">
+                            Preencha todos os campos!
+                        </div> 
+                    <?php
+                }
+            }
         ?>
     </body>
 </html>

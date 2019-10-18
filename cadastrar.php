@@ -2,7 +2,6 @@
     require_once 'classes/usuarios.php';
     $u = new Usuario;
 ?>
-
 <html lang="pt-br">
     <head>
         <meta charset="utf-8">
@@ -36,18 +35,38 @@
                     if($u->msgErro == ""){//se vazio esta tudo OK
                         if($senha == $confirmarSenha){
                             if($u->cadastrar($nome,$telefone,$email,$senha)){
-                                echo "Cadastrado com sucesso! Acesse para entrar!";
+                                ?>
+                                    <div id="msg-sucesso">
+                                        Cadastrado com sucesso! Acesse para entrar!
+                                    </div> 
+                                <?php
                             }else{
-                                echo "Email já cadastrado!";
+                                ?>
+                                    <div class="msg-erro">
+                                        Email já cadastrado!
+                                    </div> 
+                                <?php
                             }
                         }else{
-                            echo "Erro: Senha e Confirmar Senha não confere!";
+                            ?>
+                                <div class="msg-erro">
+                                    Erro: Senha e Confirmar Senha não confere!
+                                </div> 
+                            <?php
                         }
                     }else{
-                        echo "Erro: ".$u->msgErro;
+                        ?>
+                            <div class="msg-erro">
+                                <?php echo "Erro: ".$u->msgErro; ?>
+                            </div> 
+                        <?php
                     }
                 }else{
-                    echo "Preencha todos os campos!";
+                    ?>
+                        <div class="msg-erro">
+                            Preencha todos os campos!
+                        </div> 
+                    <?php
                 } 
             }
         ?>
